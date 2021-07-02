@@ -6,6 +6,8 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 project(SCRAM VERSION 0.16.2 LANGUAGES CXX)
 
+set(CMAKE_CXX_COMPILER /mingw64/bin/gcc)
+
 ####################### Begin Options ###################
 
 option(WITH_TCMALLOC "Use TCMalloc if available (#1 preference)" ON)
@@ -16,10 +18,10 @@ option(WITH_PROFILE "Instrument for performance profiling" OFF)
 
 option(HAS_TANGO "The system provides the fall-back Tango icons" OFF)
 
-option(BUILD_GUI "Build the GUI front-end" ON)
+option(BUILD_GUI "Build the GUI front-end" OFF)
 option(BUILD_TESTING "Build the tests" OFF)  # Influences CTest.
 
-option(PACKAGE "Package for distribution" OFF)
+option(PACKAGE "Package for distribution" ON)
 
 ####################### End Options ###################
 
@@ -212,6 +214,7 @@ if(PACKAGE)
     set(CPACK_PACKAGE_EXECUTABLES "scram-gui" "SCRAM")
     set(CPACK_CREATE_DESKTOP_LINKS "scram-gui")
     set(CPACK_COMPONENT_GUI_REQUIRED ON)
+	set(CMAKE_OBJDUMP "objdump")
     # The following configuration assumes MinGW64 is setup specifically for this project.
     get_filename_component(MINGW_DLL_DIR "${CMAKE_CXX_COMPILER}" PATH)
     message(STATUS "MinGW bin location: ${MINGW_DLL_DIR}")
